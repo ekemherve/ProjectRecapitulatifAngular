@@ -3,6 +3,18 @@
     <!-- <span>My First App</span> -->
     <a href="#" mat-button [routerLink]="[ '/welcome']" routerLinkActive="active">Home</a>
     <a href="#" mat-button [routerLink]="[ '/users']" routerLinkActive="active">Users</a>
+    <span>{{username}}</span>
+    <span fxFlex="100" class="example-spacer"></span>
+    <a *ngIf="!isUserLoggedIn"
+       href="#"
+       mat-button
+       [routerLink]="[ '/login']">Login</a>
+    <!--<a *ngIf="isUserLoggedIn"
+       href="#"
+       mat-button (click)="logOut()">Logout</a>-->
+    <button *ngIf="isUserLoggedIn"
+       href="#"
+       mat-button (click)="logOut()">Logout</button>
     <a href="#" mat-button [routerLink]="[ '/register']" routerLinkActive="active">Register</a>
   </mat-toolbar-row>
 </mat-toolbar>

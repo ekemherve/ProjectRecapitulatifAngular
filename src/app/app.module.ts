@@ -9,6 +9,8 @@ import {Route, RouterModule} from '@angular/router';
 import { WelcomeComponent } from './component/welcome/welcome.component';
 import {AngularMaterialModule} from './module/angular-material/angular-material.module';
 import {UserModule} from './module/user/user.module';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {Interceptor} from './interceptor/interceptor';
 
 const routes: Route[] = [
   {path: 'welcome', component: WelcomeComponent},
@@ -29,7 +31,9 @@ const routes: Route[] = [
     UserModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
