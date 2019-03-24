@@ -8,6 +8,7 @@ import { NavbarComponent } from './component/navbar/navbar.component';
 import {Route, RouterModule} from '@angular/router';
 import { WelcomeComponent } from './component/welcome/welcome.component';
 import {AngularMaterialModule} from './module/angular-material/angular-material.module';
+import {UserModule} from './module/user/user.module';
 
 const routes: Route[] = [
   {path: 'welcome', component: WelcomeComponent},
@@ -25,6 +26,7 @@ const routes: Route[] = [
     BrowserAnimationsModule,
     AngularMaterialModule,
     AuthModule,
+    UserModule,
     RouterModule.forRoot(routes)
   ],
   providers: [],

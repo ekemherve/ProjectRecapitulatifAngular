@@ -24,6 +24,7 @@ export class UserService {
     return this._http.get<User[]>(Constant.URL).pipe(
       tap(data => {
         this._allUsers.next(data);
+        console.log(data);
       })
     );
   }
@@ -43,9 +44,7 @@ export class UserService {
 
   findAllPages(page: number, size: number) {
 
-    return this._http.get<User[]>(Constant.URL + '/allpages?' + 'page=' + page + '&size=' + size)
-      .pipe(
-        tap(val => console.log(val)));
+    return this._http.get<User[]>(Constant.URL + '/allpages?' + 'page=' + page + '&size=' + size);
   }
 
   getnumberOfUsersInDatabase() {
