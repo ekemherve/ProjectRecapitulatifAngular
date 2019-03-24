@@ -11,6 +11,7 @@ import {AngularMaterialModule} from './module/angular-material/angular-material.
 import {UserModule} from './module/user/user.module';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {Interceptor} from './interceptor/interceptor';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 const routes: Route[] = [
   {path: 'welcome', component: WelcomeComponent},
@@ -27,6 +28,7 @@ const routes: Route[] = [
     BrowserModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
+    FlexLayoutModule,
     AuthModule,
     UserModule,
     RouterModule.forRoot(routes)
