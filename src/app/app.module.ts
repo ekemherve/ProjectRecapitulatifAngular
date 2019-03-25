@@ -12,6 +12,7 @@ import {UserModule} from './module/user/user.module';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {Interceptor} from './interceptor/interceptor';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {CarModule} from './module/car/car.module';
 
 const routes: Route[] = [
   {path: 'welcome', component: WelcomeComponent},
@@ -31,6 +32,7 @@ const routes: Route[] = [
     FlexLayoutModule,
     AuthModule,
     UserModule,
+    CarModule,
     RouterModule.forRoot(routes)
   ],
   providers: [
