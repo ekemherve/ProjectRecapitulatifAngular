@@ -12,10 +12,12 @@ import {UserService} from '../../../../service/user.service';
 export class UserListComponent implements OnInit {
 
   dataSource = new MatTableDataSource<User>();
+  dataSourceUpdate = new MatTableDataSource<User>();
 
   displayedColumns = ['id', 'username', 'email', 'birthday', 'details', 'update', 'delete'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginatorUpdate: MatPaginator;
 
   users: User[] = [];
 
@@ -25,6 +27,8 @@ export class UserListComponent implements OnInit {
   page = 0;
   length: number;
 
+  selected = ['unpublished', 'published'];
+
   constructor(private router: Router,
               private userService: UserService) {
   }
@@ -32,6 +36,7 @@ export class UserListComponent implements OnInit {
   ngOnInit() {
 
     this.dataSource.paginator = this.paginator;
+    this.dataSourceUpdate.paginator = this.paginatorUpdate;
     this.getNumberOfUserInDatabase();
     this.findAllPages();
   }
@@ -50,7 +55,7 @@ export class UserListComponent implements OnInit {
     this.userService.findAllPages(this.page, this.size).subscribe(owners => {
       this.dataSource.data = owners;
       this.users = owners;
-      // console.log(JSON.stringify(owners));
+       console.log(JSON.stringify(owners));
     });
   }
 
@@ -71,12 +76,10 @@ export class UserListComponent implements OnInit {
     this.router.navigate(['/update', id]);
   }
 
-  onPageChanges(event: any) {
+  onPageChange(event: any) {
 
     this.size = event.pageSize;
     this.page = event.pageIndex;
-    console.log('Page : ' + this.page);
-    console.log('size : ' + this.size);
 
     this.findAllPages();
   }

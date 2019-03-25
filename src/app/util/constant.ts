@@ -1,5 +1,5 @@
 export class Constant {
 
-  public static LOGIN_URL = 'http://localhost:8080/api/token';
-  static URL = 'http://localhost:8080/api/user';
+  public static LOGIN_URL = 'http://localhost:8081/api/token';
+  static URL = 'http://localhost:8081/api/user';
 }
