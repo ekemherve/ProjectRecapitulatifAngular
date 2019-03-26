@@ -3,6 +3,7 @@ import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {Router} from '@angular/router';
 import {CarDTO} from '../../../../model/car-dto';
 import {CarService} from '../../../../service/car.service';
+import {AuthService} from '../../../../service/auth.service';
 
 @Component({
   selector: 'app-car-list',
@@ -13,12 +14,14 @@ export class CarListComponent implements OnInit {
 
   dataSource = new MatTableDataSource<CarDTO>();
   dataSourceSoldCars = new MatTableDataSource<CarDTO>();
-  displayedColumns = ['id', 'brand', 'model', 'creation', 'details', 'update', 'delete'];
+  displayedColumns = ['id', 'brand', 'model', 'sold', 'creation', 'details', 'update', 'delete'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatorSoldCars: MatPaginator;
 
   // cars: CarDTO[] = [];
+
+  username: string;
 
   pageSizeOptions: number[] = [1, 4, 6];
 
@@ -33,11 +36,13 @@ export class CarListComponent implements OnInit {
   lengthSold: number;
 
   constructor(private router: Router,
-              private _carService: CarService) {
+              private _carService: CarService,
+              private _authService: AuthService) {
   }
 
   ngOnInit() {
 
+    this._authService.username.subscribe(value => this.username = value);
     this.dataSource.paginator = this.paginator;
     this.dataSourceSoldCars.paginator = this.paginatorSoldCars;
     this.countNumberOfCars(); // set le nombre voiture vendus et non vendus depuis la base de données
@@ -72,7 +77,7 @@ export class CarListComponent implements OnInit {
 
   countNumberOfCars() {
 
-    this._carService.countNumberOfCars().subscribe(size => {
+    this._carService.countNumberOfCars(this.username).subscribe(size => {
       this.length = Number(size[1]);
       this.lengthSold = Number(size[0]);
       console.log('All cars : ' + JSON.stringify(size));

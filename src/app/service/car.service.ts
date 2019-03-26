@@ -26,8 +26,8 @@ export class CarService {
     return this._http.get(Constant.CAR_URL + '/count');
   }*/
 
-  public countNumberOfCars(): Observable<number[]> {
-    return this._http.get<number[]>(Constant.CAR_URL + '/countsize');
+  public countNumberOfCars(username: string): Observable<number[]> {
+    return this._http.get<number[]>(Constant.CAR_URL + '/countsize/' + username);
   }
 
   findUnSoldCars(page: number, size: number): Observable<CarDTO[]> {
