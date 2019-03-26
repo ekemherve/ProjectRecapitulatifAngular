@@ -6,14 +6,15 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {Route, RouterModule} from '@angular/router';
+import { CarListComponent } from './component/car-list/car-list.component';
 
 const  routes: Route[] = [
-  {path: 'create', component: CarCreateComponent}
-  // {path: 'all', component: CarListComponent}
+  {path: 'create', component: CarCreateComponent},
+  {path: 'cars', component: CarListComponent}
 ];
 
 @NgModule({
-  declarations: [CarCreateComponent],
+  declarations: [CarCreateComponent, CarListComponent],
   imports: [
     CommonModule,
     AngularMaterialModule,

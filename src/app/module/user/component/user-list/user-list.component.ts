@@ -38,7 +38,7 @@ export class UserListComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSourceUpdate.paginator = this.paginatorUpdate;
     this.getNumberOfUserInDatabase();
-    this.findAllPages();
+    this.findByPageIndexAndSize();
   }
 
   findAll() {
@@ -49,7 +49,7 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  findAllPages() {
+  findByPageIndexAndSize() {
 
     console.log('Size : ' + this.size, 'Page : ' + this.page);
     this.userService.findAllPages(this.page, this.size).subscribe(owners => {
@@ -80,8 +80,7 @@ export class UserListComponent implements OnInit {
 
     this.size = event.pageSize;
     this.page = event.pageIndex;
-
-    this.findAllPages();
+    this.findByPageIndexAndSize();
   }
 
 }
