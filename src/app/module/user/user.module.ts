@@ -6,13 +6,15 @@ import {AngularMaterialModule} from '../angular-material/angular-material.module
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import { UserUpdateComponent } from './component/user-update/user-update.component';
 
 const  routes: Route[] = [
   {path: 'users', component: UserListComponent},
+  {path: 'update/:id', component: UserUpdateComponent}
 ];
 
 @NgModule({
-  declarations: [UserListComponent],
+  declarations: [UserListComponent, UserUpdateComponent],
   imports: [
     CommonModule,
     AngularMaterialModule,

@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {CarDTO} from '../../../../model/car-dto';
 import {CarService} from '../../../../service/car.service';
 import {AuthService} from '../../../../service/auth.service';
+import {Car} from '../../../../model/car';
 
 @Component({
   selector: 'app-car-list',
@@ -12,30 +13,28 @@ import {AuthService} from '../../../../service/auth.service';
 })
 export class CarListComponent implements OnInit {
 
-  dataSource = new MatTableDataSource<CarDTO>();
-  dataSourceSoldCars = new MatTableDataSource<CarDTO>();
+  dataSource = new MatTableDataSource<Car>();
+  dataSourceSoldCars = new MatTableDataSource<Car>();
   displayedColumns = ['id', 'brand', 'model', 'sold', 'creation', 'details', 'update', 'delete'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatorSoldCars: MatPaginator;
 
-  // cars: CarDTO[] = [];
-
   username: string;
 
-  pageSizeOptions: number[] = [1, 4, 6];
+  pageSizeOptions: number[] = [4, 10, 15];
 
   size: number = this.pageSizeOptions[0];
   page = 0;
   length: number;
 
-  pageSizeOptionsSold: number[] = [1, 4, 6];
+  pageSizeOptionsSold: number[] = [4, 6, 10];
 
   sizeSold: number = this.pageSizeOptionsSold[0];
   pageSold = 0;
   lengthSold: number;
 
-  constructor(private router: Router,
+  constructor(private _router: Router,
               private _carService: CarService,
               private _authService: AuthService) {
   }
@@ -53,25 +52,24 @@ export class CarListComponent implements OnInit {
   findAll() {
     this._carService.findAll().subscribe(cars => {
       this.dataSource.data = cars;
-      console.log(JSON.stringify(cars));
     });
   }
 
   findUnSoldCars() {
 
-    console.log('Size : ' + this.size, 'Page : ' + this.page);
+    // console.log('Size : ' + this.size, 'Page : ' + this.page);
     this._carService.findUnSoldCars(this.page, this.size).subscribe(cars => {
       this.dataSource.data = cars;
-      console.log(JSON.stringify(this.dataSource.data));
+      // console.log(JSON.stringify(this.dataSource.data));
     });
   }
 
   findSoldCars() {
 
-    console.log('Size : ' + this.sizeSold, 'Page : ' + this.pageSold);
+    // console.log('Size : ' + this.sizeSold, 'Page : ' + this.pageSold);
     this._carService.findSoldCars(this.pageSold, this.sizeSold).subscribe(cars => {
       this.dataSourceSoldCars.data = cars;
-      console.log(JSON.stringify(this.dataSourceSoldCars.data));
+      // console.log(JSON.stringify(this.dataSourceSoldCars.data));
     });
   }
 
@@ -80,18 +78,18 @@ export class CarListComponent implements OnInit {
     this._carService.countNumberOfCars(this.username).subscribe(size => {
       this.length = Number(size[1]);
       this.lengthSold = Number(size[0]);
-      console.log('All cars : ' + JSON.stringify(size));
+      // console.log('All cars : ' + JSON.stringify(size));
     });
   }
 
   redirectToDetails(id: number) {
 
-    this.router.navigate(['/cars', id]);
+    this._router.navigate(['/cars', id]);
   }
 
   redirectToUpdate(id: number) {
 
-    this.router.navigate(['/update', id]);
+    this._router.navigate(['/update', id]);
   }
 
 

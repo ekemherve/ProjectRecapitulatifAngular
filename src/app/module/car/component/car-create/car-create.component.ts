@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {first} from 'rxjs/operators';
 import {CarDTO} from '../../../../model/car-dto';
 import {CarService} from '../../../../service/car.service';
+import {Car} from '../../../../model/car';
 
 @Component({
   selector: 'app-car-create',
@@ -20,18 +21,20 @@ export class CarCreateComponent implements OnInit {
 
   username: string;
 
-  car: CarDTO = {id: 0, brand: '', model: '', sold: false, creation: null, user: null};
+  // car: CarDTO = {id: 0, brand: '', model: '', sold: false, creation: null, user: null};
+
+  car: Car = {id: 0, brand: '', model: '', sold: false, creation: null};
 
   constructor(private _fb: FormBuilder,
-              private authService: AuthService,
+              private _authService: AuthService,
               private _carService: CarService,
               private _router: Router) {
   }
 
   ngOnInit() {
 
-    this.authService.username.subscribe(value => this.username = value);
-    this.authService.isUserLoggedIn.subscribe(value => this.isLoggedIn = value);
+    this._authService.username.subscribe(value => this.username = value);
+    this._authService.isUserLoggedIn.subscribe(value => this.isLoggedIn = value);
 
     this.carForm = this._fb.group({
       brand: ['', [Validators.required, Validators.minLength(4)]],
@@ -57,7 +60,7 @@ export class CarCreateComponent implements OnInit {
       model: this.carForm.get('model').value,
       sold: this.carForm.get('sold').value,
       creation: this.carForm.get('creation').value,
-      user: {id: 0, username: this.username, email: '', password: '', passwordConfirm: '', birthday: null}
+      // user: {id: 0, username: this.username, email: '', password: '', passwordConfirm: '', birthday: null}
     };
   }
 
@@ -68,7 +71,7 @@ export class CarCreateComponent implements OnInit {
       this._carService.save(this.car)
         .pipe(first())
         .subscribe(data => {
-          console.log('Registered, let\'s go to home directory');
+          console.log('Registered, let\'s go to the carToUpdate-list');
           this._router.navigate(['/cars']);
         });
     }

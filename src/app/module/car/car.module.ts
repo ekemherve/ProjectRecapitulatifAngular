@@ -7,14 +7,16 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {Route, RouterModule} from '@angular/router';
 import { CarListComponent } from './component/car-list/car-list.component';
+import { CarDetailComponent } from './component/car-detail/car-detail.component';
 
 const  routes: Route[] = [
   {path: 'create', component: CarCreateComponent},
-  {path: 'cars', component: CarListComponent}
+  {path: 'cars', component: CarListComponent},
+  {path: 'cars/:id', component: CarDetailComponent}
 ];
 
 @NgModule({
-  declarations: [CarCreateComponent, CarListComponent],
+  declarations: [CarCreateComponent, CarListComponent, CarDetailComponent],
   imports: [
     CommonModule,
     AngularMaterialModule,

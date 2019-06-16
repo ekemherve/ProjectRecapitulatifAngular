@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {CarDTO} from '../model/car-dto';
 import {Constant} from '../util/constant';
 import {Observable} from 'rxjs';
+import {Car} from '../model/car';
 
 @Injectable({
   providedIn: 'root'
@@ -12,14 +13,14 @@ export class CarService {
   constructor(private _http: HttpClient) {
   }
 
-  public save(carDTO: CarDTO) {
+  public save(car: Car) {
 
-    return this._http.post(Constant.CAR_URL, carDTO);
+    return this._http.post(Constant.CAR_URL, car);
   }
 
-  public findAll(): Observable<CarDTO[]> {
+  public findAll(): Observable<Car[]> {
 
-    return this._http.get<CarDTO[]>(Constant.CAR_URL);
+    return this._http.get<Car[]>(Constant.CAR_URL);
   }
 
   /*public countNumberOfCars(): Observable<number> {
@@ -30,11 +31,19 @@ export class CarService {
     return this._http.get<number[]>(Constant.CAR_URL + '/countsize/' + username);
   }
 
-  findUnSoldCars(page: number, size: number): Observable<CarDTO[]> {
-    return this._http.get<CarDTO[]>(Constant.CAR_URL + '/unsold' + '?page=' + page + '&size=' + size);
+  findUnSoldCars(page: number, size: number): Observable<Car[]> {
+    return this._http.get<Car[]>(Constant.CAR_URL + '/unsold' + '?page=' + page + '&size=' + size);
   }
 
-  findSoldCars(page: number, size: number): Observable<CarDTO[]> {
-    return this._http.get<CarDTO[]>(Constant.CAR_URL + '/sold' + '?page=' + page + '&size=' + size);
+  findSoldCars(page: number, size: number): Observable<Car[]> {
+    return this._http.get<Car[]>(Constant.CAR_URL + '/sold' + '?page=' + page + '&size=' + size);
+  }
+
+  findCarById(id: number): Observable<Car> {
+    return this._http.get<Car>(Constant.CAR_URL + '/' + id);
+  }
+
+  update(carToUpdate: Car): Observable<Car> {
+    return this._http.put<Car>(Constant.CAR_URL, carToUpdate);
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from '../model/user';
 import {HttpClient} from '@angular/common/http';
@@ -20,6 +20,9 @@ export class UserService {
     return this._http.post(Constant.URL, user);
   }
 
+  /**
+   * Retrieve all the users
+   */
   public findAll(): Observable<User[]> {
     return this._http.get<User[]>(Constant.URL).pipe(
       tap(data => {
@@ -29,26 +32,54 @@ export class UserService {
     );
   }
 
-  public delete(user: User) {
-    return this._http.delete(Constant.URL + '/' + user.id);
+  /**
+   * Delete a User given his id
+   * @param id : id of the user to delete
+   */
+  public delete(id: number) {
+    return this._http.delete(Constant.URL + '/' + id);
   }
 
+  /**
+   * Retrieve a User given his id
+   * @param id: id of the user to retrieve
+   */
   public findById(id: number): Observable<User> {
 
-    return this._http.get<User>(Constant.URL + '/' + id);
+    return this._http.get<User>(Constant.URL + '/id/' + id);
   }
 
+  /**
+   * Retrieve a User given his username
+   * @param username: username of the user to retrieve
+   */
+  public findByUsername(username: string): Observable<User> {
+
+    return this._http.get<User>(Constant.URL + '/' + username);
+  }
+
+  /**
+   * Update a given User
+   * @param user : User to update
+   */
   public update(user: User) {
     return this._http.put(Constant.URL, user);
   }
 
+  /**
+   * Retrieve users given the index of the page in the table and the size(the number of user by page)
+   * @param page : index of the actual page
+   * @param size : number of user by page
+   */
   findAllPages(page: number, size: number) {
 
     return this._http.get<User[]>(Constant.URL + '/allpages?' + 'page=' + page + '&size=' + size);
   }
 
-  getnumberOfUsersInDatabase() {
-
+  /**
+   * Count the number of all the users
+   */
+  getNumberOfUsers() {
     return this._http.get(Constant.URL + '/size');
   }
 }
